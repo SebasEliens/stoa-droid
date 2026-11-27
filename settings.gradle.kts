@@ -15,4 +15,4 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "stoa-droid"
-include(":core:data", ":core:llm", ":core:rag", ":tools:eval")
+include(":app", ":core:data", ":core:llm", ":core:rag", ":tools:eval")
