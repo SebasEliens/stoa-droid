@@ -1,0 +1,21 @@
+# Gradle / IDE
+.gradle/
+build/
+.kotlin/
+local.properties
+.idea/
+*.iml
+captures/
+
+# Model weights are never committed (also enforced by scripts/check-no-models.sh)
+*.litertlm
+*.task
+*.tflite
+*.onnx
+*.gguf
+*.safetensors
+models/
+
+# Personal agent overrides
+*.local.*
+.DS_Store
