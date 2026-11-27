@@ -53,7 +53,8 @@ for spec in specs/*.md; do
         *) echo "$spec $id: verified by '$check' is not an S id, eval, eval-real, bench or device" >&2; bad=1 ;;
       esac
     done
-    if ! is_draft "$spec" && [[ $choice == open* ]]; then
+    [[ -n $choice ]] || { echo "$spec $id: choice is empty" >&2; bad=1; }
+    if ! is_draft "$spec" && [[ ${choice//\*/} == open* ]]; then
       echo "$spec $id: still open in a spec that is not draft; the owner decides it first" >&2
       bad=1
     fi
