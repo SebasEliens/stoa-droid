@@ -23,7 +23,7 @@ Specify is where every design decision is made, by the owner, with you. Implemen
   - no model on the phone; model fails to load; slow first load
   - model output: invented quote, unknown passage id, empty, malformed, unfinished
   - one philosopher vs all three
-  - offline (the app must never need the network)
+  - offline: the app works with no network; only a model download may use it (owner, 2026-11-27)
 
 ### Device questions
 
@@ -36,7 +36,8 @@ Answer each under `## Device questions`, or write `not applicable` and why:
 - **Hardware**: GPU vs CPU, thermal throttling, a slow or failed model load.
 - **Storage**: what goes to disk, its size, what a crash in the middle of a write leaves behind.
 - **Data**: where data lives, how its schema changes later.
-- **Privacy**: what leaves the app (nothing goes over the network), which permissions it needs.
+- **Privacy**: what leaves the app (only model downloads may use the network, and nothing is sent), which
+  permissions it needs.
 
 ### Decisions
 
