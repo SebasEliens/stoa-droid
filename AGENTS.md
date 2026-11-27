@@ -49,12 +49,15 @@ Needs JDK 21 (Gradle selects it via `gradle/gradle-daemon-jvm.properties`) and t
 
 Every feature and bug fix follows the `spec` skill (`.agents/skills/spec/SKILL.md`):
 
-1. **Specify**: acceptance examples `SNNN-n` and the edge-case checklist in `specs/NNN-*.md`; get the user's OK.
-2. **Implement**: a test named after each example id, seen failing first; then the code.
-3. **Validate**: `scripts/validate.sh` checks for model files, that every spec example has a test, then runs
-   ktlint, detekt, Android lint, unit tests, Robolectric UI tests and the eval. No metric may drop below
-   `metrics/eval.json`; when one improves, copy `build/reports/eval.json` over it in the same commit. Never lower
-   the baseline or edit `eval/golden.jsonl` just to pass.
+1. **Specify** is the design review: in `specs/NNN-*.md`, acceptance examples `SNNN-n`, the edge cases, the
+   device questions and a decision row `DNNN-n` per design choice. You explain and recommend; the owner chooses.
+   `Status: draft` until the owner OKs it, then `approved`.
+2. **Implement**: a test named after each example id, seen failing first; then the code. Never add or change a
+   `D` row: a new design question becomes an `open` row, then stop and report it.
+3. **Validate**: `scripts/validate.sh` checks for model files, spec examples have tests and `D` rows are decided
+   and verifiable, then runs ktlint, detekt, Android lint, unit tests, Robolectric UI tests and the eval. No
+   metric may drop below `metrics/eval.json`; when one improves, copy `build/reports/eval.json` over it in the
+   same commit. Never lower the baseline or edit `eval/golden.jsonl` just to pass.
 
 Not covered by validate, so run them or say they were not run: `scripts/bench.sh` on the phone for model,
 prompt-length or performance changes, and the eval with `-Preal` for prompt changes.
