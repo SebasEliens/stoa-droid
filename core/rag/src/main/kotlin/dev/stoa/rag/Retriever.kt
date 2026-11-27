@@ -36,8 +36,10 @@ class Retriever(
                 .sortedByDescending { it.second }
                 .map { corpus.passages[it.first] }
         val perAuthor = authors.map { a -> ranked.filter { it.philosopher == a } }
+        val position = ranked.withIndex().associate { (i, p) -> p.id to i }
+        // Round-robin over authors so each gets a share; within a round, best score first.
         return (0 until k)
-            .flatMap { rank -> perAuthor.mapNotNull { it.getOrNull(rank) } }
+            .flatMap { rank -> perAuthor.mapNotNull { it.getOrNull(rank) }.sortedBy { position.getValue(it.id) } }
             .take(k)
     }
 
