@@ -1,0 +1,41 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(./gradlew:*)",
+      "Bash(scripts/bench.sh:*)",
+      "Bash(scripts/check-no-models.sh:*)",
+      "Bash(scripts/post-edit.sh:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git show:*)",
+      "Bash(adb devices:*)",
+      "Bash(adb get-state:*)",
+      "Bash(adb logcat:*)"
+    ],
+    "deny": [
+      "Bash(git push --force:*)",
+      "Bash(git push -f:*)",
+      "Bash(rm -rf:*)",
+      "Read(**/*.litertlm)",
+      "Read(**/*.task)",
+      "Read(**/*.tflite)",
+      "Read(**/*.onnx)",
+      "Read(**/*.gguf)"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/scripts/post-edit.sh",
+            "timeout": 300
+          }
+        ]
+      }
+    ]
+  }
+}
