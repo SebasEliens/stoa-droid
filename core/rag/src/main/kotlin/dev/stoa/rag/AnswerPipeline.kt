@@ -43,9 +43,13 @@ class AnswerPipeline(
                 raw.append(it)
                 emit(parse(raw.toString(), sources, complete = false))
             }
-            emit(parse(raw.toString(), sources, complete = true))
+            val final = parse(raw.toString(), sources, complete = true)
+            // Empty output, or only quotes that failed verification: never leave the user with a blank reply.
+            emit(if (final.blocks.isEmpty()) final.copy(blocks = listOf(Block.Prose(NO_ANSWER))) else final)
         }
 }
+
+const val NO_ANSWER = "I could not find the right words for that. Try asking in another way."
 
 private val QUOTE_LINE = Regex("""^>\s*\[([\w-]+)]\s*(.*)$""")
 
