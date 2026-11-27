@@ -24,6 +24,9 @@ android {
         targetCompatibility = JavaVersion.VERSION_21
     }
 
+    // Robolectric runs the real screen on the JVM and needs the merged assets (the corpus).
+    testOptions.unitTests.isIncludeAndroidResources = true
+
     // The committed corpus ships as-is in the APK.
     sourceSets
         .getByName("main")
@@ -41,4 +44,8 @@ dependencies {
     implementation(libs.activity.compose)
     implementation(libs.lifecycle.viewmodel.compose)
     debugImplementation(libs.compose.ui.tooling)
+    debugImplementation(libs.compose.ui.test.manifest)
+    testImplementation(platform(libs.compose.bom))
+    testImplementation(libs.compose.ui.test.junit4)
+    testImplementation(libs.robolectric)
 }
