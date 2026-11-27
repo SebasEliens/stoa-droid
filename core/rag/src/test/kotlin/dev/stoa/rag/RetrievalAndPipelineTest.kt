@@ -26,7 +26,7 @@ class RetrievalAndPipelineTest {
     }
 
     @Test
-    fun `a question no passage matches still gets an answer`() =
+    fun `S001-2 a question no passage matches still gets an answer`() =
         runBlocking {
             val answer =
                 AnswerPipeline(
@@ -38,7 +38,7 @@ class RetrievalAndPipelineTest {
         }
 
     @Test
-    fun `pipeline shows a verified quote from a retrieved passage`() =
+    fun `S001-1 pipeline shows a verified quote from a retrieved passage`() =
         runBlocking {
             val answer =
                 AnswerPipeline(retriever, scriptedLlm("Time is all we own."))

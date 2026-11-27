@@ -31,7 +31,7 @@ class QuotesTest {
     }
 
     @Test
-    fun `displayed quotes are verbatim, bad ones are dropped and counted`() {
+    fun `S001-3 displayed quotes are verbatim, bad ones are dropped and counted`() {
         val raw =
             """
             Our troubles come from within.

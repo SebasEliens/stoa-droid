@@ -8,7 +8,8 @@ Target: Fairphone (Gen 6), minSdk 33. Voice (whisper.cpp + local TTS) comes late
 
 | What | Command |
 |---|---|
-| Unit tests | `./gradlew test` |
+| **Validate** (everything CI runs) | `scripts/validate.sh` |
+| Unit + UI tests | `./gradlew test` |
 | Lint + unit tests | `./gradlew check` |
 | Eval: golden set, fake LLM (CI runs this) | `./gradlew :tools:eval:run` |
 | Eval with a real model on this machine | `./gradlew :tools:eval:run -Preal=/path/model.litertlm` |
@@ -27,6 +28,8 @@ Needs JDK 21 (Gradle selects it via `gradle/gradle-daemon-jvm.properties`) and t
 - `core:rag`: `Retriever` (BM25), `Prompts`, quote verification (`findExcerpt`, `parse`), `AnswerPipeline`. Pure JVM.
 - `tools:eval`: golden-set eval on the desktop JVM. Cases in `eval/golden.jsonl`, baseline in `metrics/eval.json`.
 - `app`: Compose UI, `ChatViewModel`, manual DI in `StoaApp.kt`; debug-only `BenchActivity` for `scripts/bench.sh`.
+  `app/src/test`: Robolectric tests that drive the real screen on the JVM.
+- `specs/`: one file per feature, with acceptance examples `SNNN-n`.
 - `corpus/`: `passages.jsonl`, shipped as APK assets. Today an 80-passage fixture cut from Long's Meditations and
   Encheiridion and Gummere's Seneca; to be replaced by a Kotlin ingest tool that builds the full corpus.
 
@@ -42,15 +45,19 @@ Needs JDK 21 (Gradle selects it via `gradle/gradle-daemon-jvm.properties`) and t
 - UI work and tests use `FakeLlm`. Only the app at runtime, `eval -Preal` and the benchmark load real weights.
 - No DI framework, Room or Navigation until a feature needs them. Versions live only in `gradle/libs.versions.toml`.
 
-## Verify a change
+## Development loop: specify, implement, validate
 
-1. `./gradlew check` (ktlint, detekt, unit tests).
-2. `./gradlew :tools:eval:run`: no metric may drop below `metrics/eval.json`. If one improves, copy
-   `build/reports/eval.json` over the baseline in the same commit. Never lower the baseline or edit
-   `eval/golden.jsonl` just to pass.
-3. Changes to `LiteRtLlm`, prompt length or anything performance-related: run `scripts/bench.sh` on the phone,
-   or state that it was not run.
-4. UI changes: install on a phone or emulator and look at it.
+Every feature and bug fix follows the `spec` skill (`.agents/skills/spec/SKILL.md`):
+
+1. **Specify**: acceptance examples `SNNN-n` and the edge-case checklist in `specs/NNN-*.md`; get the user's OK.
+2. **Implement**: a test named after each example id, seen failing first; then the code.
+3. **Validate**: `scripts/validate.sh` checks for model files, that every spec example has a test, then runs
+   ktlint, detekt, Android lint, unit tests, Robolectric UI tests and the eval. No metric may drop below
+   `metrics/eval.json`; when one improves, copy `build/reports/eval.json` over it in the same commit. Never lower
+   the baseline or edit `eval/golden.jsonl` just to pass.
+
+Not covered by validate, so run them or say they were not run: `scripts/bench.sh` on the phone for model,
+prompt-length or performance changes, and the eval with `-Preal` for prompt changes.
 
 ## MVP is done when
 
