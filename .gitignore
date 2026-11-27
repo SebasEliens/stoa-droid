@@ -19,3 +19,4 @@ models/
 # Personal agent overrides
 *.local.*
 .DS_Store
+.claude/worktrees/
