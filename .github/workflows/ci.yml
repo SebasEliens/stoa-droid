@@ -1,0 +1,21 @@
+name: CI
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+      - name: No model weights or large files
+        run: scripts/check-no-models.sh --all
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: 21
+      - uses: gradle/actions/setup-gradle@v6
+      - name: Lint, unit tests, eval (fake LLM, baseline gate)
+        run: ./gradlew check :tools:eval:run
