@@ -51,7 +51,13 @@ class ChatViewModel(
             } catch (
                 @Suppress("TooGenericExceptionCaught") e: Exception,
             ) {
-                val error = Answer(listOf(Block.Prose("Something went wrong: ${e.message}")), emptyList(), 0, 0)
+                val error =
+                    Answer(
+                        listOf(Block.Prose("Something went wrong: ${e.message ?: e::class.simpleName}")),
+                        emptyList(),
+                        0,
+                        0,
+                    )
                 _turns.update { it.dropLast(1) + Turn(question, error) }
             } finally {
                 _busy.value = false

@@ -40,6 +40,11 @@ object Prompts {
  */
 fun scriptedLlm(intro: String = "Consider this."): Llm =
     FakeLlm { _, prompt ->
-        val (id, text) = Regex("""^\[([\w-]+)] [^—]+— (.*)$""", RegexOption.MULTILINE).find(prompt)!!.destructured
-        "$intro\n> [$id] ${text.split(" ").take(25).joinToString(" ")}\n"
+        val best = Regex("""^\[([\w-]+)] [^—]+— (.*)$""", RegexOption.MULTILINE).find(prompt)
+        if (best == null) {
+            "None of the passages I have speak to that. Try asking in other words.\n"
+        } else {
+            val (id, text) = best.destructured
+            "$intro\n> [$id] ${text.split(" ").take(25).joinToString(" ")}\n"
+        }
     }

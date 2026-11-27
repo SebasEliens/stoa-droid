@@ -26,6 +26,18 @@ class RetrievalAndPipelineTest {
     }
 
     @Test
+    fun `a question no passage matches still gets an answer`() =
+        runBlocking {
+            val answer =
+                AnswerPipeline(
+                    retriever,
+                    scriptedLlm(),
+                ).ask("smarth phones", Philosopher.entries.toSet()).last()
+            assertTrue(answer.sources.isEmpty())
+            assertTrue(answer.blocks.single() is Block.Prose)
+        }
+
+    @Test
     fun `pipeline shows a verified quote from a retrieved passage`() =
         runBlocking {
             val answer =
