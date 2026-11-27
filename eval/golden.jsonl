@@ -1,0 +1,20 @@
+{"q": "Some things are up to us and some are not. What is actually in my power?", "expect": ["Enchiridion 1"]}
+{"q": "Why do events upset me so much?", "expect": ["Enchiridion 5", "Meditations 8.47"]}
+{"q": "How should I prepare for dealing with rude and ungrateful people today?", "expect": ["Meditations 2.1"]}
+{"q": "I want to get away from it all to a quiet place in the country.", "expect": ["Meditations 4.3"]}
+{"q": "I never seem to have enough time.", "expect": ["Letter 1."]}
+{"q": "I keep worrying about things that might go wrong.", "expect": ["Letter 13.", "Meditations 7.8"]}
+{"q": "Will travelling abroad cure my restlessness?", "expect": ["Letter 28.", "Letter 104."]}
+{"q": "How should I think about my own death?", "expect": ["Meditations 2.11", "Meditations 2.14", "Meditations 4.17", "Meditations 4.48", "Enchiridion 5", "Enchiridion 21", "Letter 1."]}
+{"q": "Is it worth reading many books, or a few?", "expect": ["Letter 2.", "Meditations 2.2"]}
+{"q": "I find it hard to get out of bed in the morning.", "expect": ["Meditations 5.1"]}
+{"q": "What is true friendship?", "expect": ["Letter 3."]}
+{"q": "Someone insulted me. How should I respond?", "expect": ["Enchiridion 20", "Enchiridion 42", "Meditations 11.18"]}
+{"q": "I lost someone I loved. How do I cope?", "expect": ["Enchiridion 3", "Enchiridion 11"]}
+{"q": "Should I avoid crowds and big public events?", "expect": ["Letter 7."]}
+{"q": "How do I stop wanting things to go my way?", "expect": ["Enchiridion 8"]}
+{"q": "I talk a lot about being a good person instead of just being one.", "expect": ["Meditations 10.16"]}
+{"q": "My thoughts are always negative. Does that shape who I am?", "expect": ["Meditations 5.16"]}
+{"q": "How should I behave in conversation and in company?", "expect": ["Enchiridion 33"]}
+{"q": "Is a man with little money poor?", "authors": ["SENECA"], "expect": ["Letter 2.", "Letter 1."]}
+{"q": "I keep putting off the important things.", "authors": ["MARCUS"], "expect": ["Meditations 2.4", "Meditations 4.17"]}

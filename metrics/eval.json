@@ -1,0 +1,8 @@
+{
+    "mode": "fake",
+    "cases": 20,
+    "retrievalHitAt8": 0.8,
+    "citationAccuracy": 0.65,
+    "quoteCoverage": 1.0,
+    "exactQuoteRate": 1.0
+}
