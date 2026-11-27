@@ -2,7 +2,6 @@ package dev.stoa.rag
 
 import dev.stoa.data.Corpus
 import dev.stoa.data.Philosopher
-import dev.stoa.llm.FakeLlm
 import kotlinx.coroutines.flow.last
 import kotlinx.coroutines.runBlocking
 import java.io.File
@@ -29,21 +28,13 @@ class RetrievalAndPipelineTest {
     @Test
     fun `pipeline shows a verified quote from a retrieved passage`() =
         runBlocking {
-            val llm =
-                FakeLlm { _, prompt ->
-                    val (id, text) =
-                        Regex(
-                            """^\[([\w-]+)] [^—]+— (.{40})""",
-                            RegexOption.MULTILINE,
-                        ).find(prompt)!!.destructured
-                    "Time is all we own.\n> [$id] $text\nGuard it."
-                }
             val answer =
-                AnswerPipeline(
-                    retriever,
-                    llm,
-                ).ask("I never have enough time", setOf(Philosopher.SENECA)).last()
+                AnswerPipeline(retriever, scriptedLlm("Time is all we own."))
+                    .ask("I never have enough time", setOf(Philosopher.SENECA))
+                    .last()
+            assertEquals(Block.Prose("Time is all we own."), answer.blocks.first())
             val quote = answer.blocks.filterIsInstance<Block.Quote>().single()
+            assertEquals(answer.sources.first(), quote.passage)
             assertTrue(quote.passage in answer.sources && quote.passage.text.contains(quote.text))
             assertEquals(0, answer.quotesDropped)
         }

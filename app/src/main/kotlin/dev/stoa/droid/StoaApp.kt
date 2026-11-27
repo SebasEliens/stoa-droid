@@ -2,12 +2,14 @@ package dev.stoa.droid
 
 import android.app.Application
 import android.content.Context
+import android.util.Log
+import com.google.ai.edge.litertlm.Backend
 import dev.stoa.data.Corpus
-import dev.stoa.llm.FakeLlm
 import dev.stoa.llm.LiteRtLlm
 import dev.stoa.llm.Llm
 import dev.stoa.rag.AnswerPipeline
 import dev.stoa.rag.Retriever
+import dev.stoa.rag.scriptedLlm
 
 class StoaApp : Application() {
     val container by lazy { AppContainer(this) }
@@ -23,8 +25,15 @@ class AppContainer(
 
     // Loading the model takes seconds: first use happens off the main thread, in ChatViewModel.
     private val llm: Llm by lazy {
-        modelFile?.let { LiteRtLlm(it.path, cacheDir = context.cacheDir.path) }
-            ?: FakeLlm { _, _ -> "No model on this phone yet. Push one with scripts/bench.sh <model.litertlm>.\n" }
+        val path = modelFile?.path ?: return@lazy scriptedLlm(NO_MODEL)
+        // GPU support varies by phone (and the emulator has none we can use): fall back to CPU.
+        runCatching { LiteRtLlm(path, Backend.GPU(), context.cacheDir.path) }
+            .onFailure { Log.w("Stoa", "GPU backend unavailable, using CPU", it) }
+            .getOrElse { LiteRtLlm(path, Backend.CPU(), context.cacheDir.path) }
     }
     val pipeline by lazy { AnswerPipeline(retriever, llm) }
+
+    private companion object {
+        const val NO_MODEL = "No model on this phone yet, so here is the passage that fits best:"
+    }
 }

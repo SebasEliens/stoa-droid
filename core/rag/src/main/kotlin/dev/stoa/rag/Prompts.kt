@@ -2,6 +2,8 @@ package dev.stoa.rag
 
 import dev.stoa.data.Passage
 import dev.stoa.data.Philosopher
+import dev.stoa.llm.FakeLlm
+import dev.stoa.llm.Llm
 
 object Prompts {
     fun system(authors: Set<Philosopher>): String {
@@ -31,3 +33,13 @@ object Prompts {
             append("Question: ").append(question)
         }
 }
+
+/**
+ * Stand-in model that obeys the format: [intro], then a quote of the opening words of the best passage in the
+ * prompt (the first one [Prompts.user] lists). Used by the eval and by the app when no model is on the phone.
+ */
+fun scriptedLlm(intro: String = "Consider this."): Llm =
+    FakeLlm { _, prompt ->
+        val (id, text) = Regex("""^\[([\w-]+)] [^—]+— (.*)$""", RegexOption.MULTILINE).find(prompt)!!.destructured
+        "$intro\n> [$id] ${text.split(" ").take(25).joinToString(" ")}\n"
+    }

@@ -3,11 +3,11 @@ package dev.stoa.eval
 import com.google.ai.edge.litertlm.Backend
 import dev.stoa.data.Corpus
 import dev.stoa.data.Philosopher
-import dev.stoa.llm.FakeLlm
 import dev.stoa.llm.LiteRtLlm
 import dev.stoa.rag.AnswerPipeline
 import dev.stoa.rag.Block
 import dev.stoa.rag.Retriever
+import dev.stoa.rag.scriptedLlm
 import kotlinx.coroutines.flow.last
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.Serializable
@@ -40,13 +40,6 @@ fun matches(
     ref: String,
     expected: String,
 ) = if (expected.endsWith(".")) ref.startsWith(expected) else ref == expected
-
-/** Quotes the opening words of the first (best-ranked) passage in the prompt, like an obedient model. */
-val scriptedLlm =
-    FakeLlm { _, prompt ->
-        val (id, text) = Regex("""^\[([\w-]+)] [^—]+— (.*)$""", RegexOption.MULTILINE).find(prompt)!!.destructured
-        "Consider this.\n> [$id] ${text.split(" ").take(10).joinToString(" ")}\n"
-    }
 
 private class Tally {
     var hits = 0
@@ -114,7 +107,7 @@ fun main(args: Array<String>): Unit =
         val cases =
             File("eval/golden.jsonl").readLines().filter { it.isNotBlank() }.map { Json.decodeFromString<Case>(it) }
         val retriever = Retriever(corpus)
-        val llm = modelPath?.let { LiteRtLlm(it, Backend.CPU()) } ?: scriptedLlm
+        val llm = modelPath?.let { LiteRtLlm(it, Backend.CPU()) } ?: scriptedLlm()
         val tally = Tally()
         cases.forEach { tally.run(it, retriever, AnswerPipeline(retriever, llm)) }
         llm.close()
