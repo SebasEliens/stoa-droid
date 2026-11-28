@@ -24,6 +24,12 @@ android {
         targetCompatibility = JavaVersion.VERSION_21
     }
 
+    // A new lint warning fails `check`. Existing ones live in lint-baseline.xml, which only shrinks.
+    lint {
+        warningsAsErrors = true
+        baseline = file("lint-baseline.xml")
+    }
+
     // Robolectric runs the real screen on the JVM and needs the merged assets (the corpus).
     testOptions.unitTests.isIncludeAndroidResources = true
 
