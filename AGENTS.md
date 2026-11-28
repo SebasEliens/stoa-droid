@@ -14,6 +14,7 @@ Target: Fairphone (Gen 6), minSdk 33. Voice (whisper.cpp + local TTS) comes late
 | Eval: golden set, fake LLM (CI runs this) | `./gradlew :tools:eval:run` |
 | Eval with a real model on this machine | `./gradlew :tools:eval:run -Preal=/path/model.litertlm` |
 | Device benchmark (phone on USB) | `scripts/bench.sh /path/model.litertlm [gpu\|cpu]` |
+| Device journey tests, FakeLlm (phone on USB) | `scripts/device-check.sh` |
 | Format | `./gradlew ktlintFormat` |
 | Install on phone | `./gradlew :app:installDebug` |
 

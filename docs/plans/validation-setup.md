@@ -145,15 +145,15 @@ Already built in the working tree (eval ratchet, `S001-6`). This PR widens `S001
 
 ## V6: instrumented journey on the Fairphone
 
-- [ ] Depends on: V0.
-- [ ] Files: `app/src/androidTest/**` (new), `app/build.gradle.kts` (androidTest deps, test runner),
+- [x] Depends on: V0.
+- [x] Files: `app/src/androidTest/**` (new), `app/build.gradle.kts` (androidTest deps, test runner),
       `gradle/libs.versions.toml`, `scripts/device-check.sh` (new), `.agents/skills/device/SKILL.md` (new),
       `AGENTS.md`.
-- [ ] Change: Compose UI tests that run on the phone with `FakeLlm`. The journey: launch, ask a question, the
+- [x] Change: Compose UI tests that run on the phone with `FakeLlm`. The journey: launch, ask a question, the
       streamed answer completes, every quote shown appears verbatim in its passage, and rotation keeps the chat.
       `scripts/device-check.sh` checks `adb get-state`, runs `connectedDebugAndroidTest`, and saves a screenshot
       and logcat under `build/reports/device/`. The `/device` skill wraps it.
-- [ ] Result: "works on the phone" becomes a pass or fail with evidence.
+- [x] Result: "works on the phone" becomes a pass or fail with evidence.
 - [ ] Verify (live): green on the Fairphone; a planted crash in `ChatViewModel` turns it red with the stack trace
       in the saved logcat.
 

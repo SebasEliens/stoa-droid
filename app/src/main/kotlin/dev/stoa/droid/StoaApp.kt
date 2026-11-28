@@ -11,13 +11,20 @@ import dev.stoa.rag.AnswerPipeline
 import dev.stoa.rag.Retriever
 import dev.stoa.rag.scriptedLlm
 
-class StoaApp : Application() {
-    val container by lazy { AppContainer(this) }
+open class StoaApp : Application() {
+    val container by lazy { createContainer() }
+
+    /** Instrumented tests override this to run the app with a fake model (app/src/androidTest). */
+    protected open fun createContainer() = AppContainer(this)
 }
 
-/** Manual DI. The model is the first `*.litertlm` in the app's external `models/` dir (see scripts/bench.sh). */
+/**
+ * Manual DI. The model is the first `*.litertlm` in the app's external `models/` dir (see scripts/bench.sh),
+ * unless [llmOverride] is given.
+ */
 class AppContainer(
     context: Context,
+    private val llmOverride: Llm? = null,
 ) {
     private val retriever by lazy { Retriever(context.assets.open("passages.jsonl").use(Corpus::load)) }
     private val modelFile =
@@ -25,6 +32,7 @@ class AppContainer(
 
     // Loading the model takes seconds: first use happens off the main thread, in ChatViewModel.
     private val llm: Llm by lazy {
+        llmOverride?.let { return@lazy it }
         val path = modelFile?.path ?: return@lazy scriptedLlm(NO_MODEL)
         // GPU support varies by phone (and the emulator has none we can use): fall back to CPU.
         runCatching { LiteRtLlm(path, Backend.GPU(), context.cacheDir.path) }

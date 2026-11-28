@@ -15,6 +15,8 @@ android {
         targetSdk = 37
         versionCode = 1
         versionName = "0.1"
+        // On-device journey tests (scripts/device-check.sh) run the app with FakeLlm, never the real model.
+        testInstrumentationRunner = "dev.stoa.droid.FakeLlmRunner"
     }
 
     buildFeatures { compose = true }
@@ -48,4 +50,10 @@ dependencies {
     testImplementation(platform(libs.compose.bom))
     testImplementation(libs.compose.ui.test.junit4)
     testImplementation(libs.robolectric)
+    androidTestImplementation(platform(libs.compose.bom))
+    androidTestImplementation(libs.compose.ui.test.junit4)
+    androidTestImplementation(libs.androidx.test.runner)
+    androidTestImplementation(libs.androidx.test.rules)
+    androidTestImplementation(libs.androidx.test.ext.junit)
+    androidTestImplementation(libs.uiautomator)
 }
