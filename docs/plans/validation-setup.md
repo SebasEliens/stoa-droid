@@ -107,9 +107,9 @@ Already built in the working tree (eval ratchet, `S001-6`). This PR widens `S001
 
 ## V3: agents cannot edit the golden set
 
-- [ ] Depends on: V0.
-- [ ] Files: `scripts/protect-golden.sh` (new), `.claude/settings.json`, `.agents/skills/eval/SKILL.md`, `AGENTS.md`.
-- [ ] Change: a `PreToolUse` hook on `Edit|Write` refuses `eval/golden.jsonl` with "propose the case in chat; the
+- [x] Depends on: V0.
+- [x] Files: `scripts/protect-golden.sh` (new), `.claude/settings.json`, `.agents/skills/eval/SKILL.md`, `AGENTS.md`.
+- [x] Change: a `PreToolUse` hook on `Edit|Write` refuses `eval/golden.jsonl` with "propose the case in chat; the
       owner adds it". The eval skill says the same.
 - [ ] Result: an agent can suggest golden cases but cannot write them.
 - [ ] Verify (live): in a Claude session, ask it to add a case; the hook blocks the edit. Known gap: a write through
