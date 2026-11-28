@@ -88,7 +88,7 @@ private suspend fun Tally.run(
 }
 
 /** CI gate: no metric may drop below the committed baseline. MVP thresholds are targets, only reported. */
-private fun regressions(
+internal fun regressions(
     report: Report,
     base: Report,
 ): List<String> =
@@ -99,6 +99,46 @@ private fun regressions(
         Triple("exactQuoteRate", base.exactQuoteRate, report.exactQuoteRate),
     ).filter { (_, was, now) -> now < was - 1e-9 }
         .map { (name, was, now) -> "$name dropped $was -> $now" }
+
+data class BaselineVersion(
+    val commit: String,
+    val message: String,
+    val report: Report,
+)
+
+/** Each version of metrics/eval.json (oldest first) may not lower a metric or the case count without a trailer. */
+fun ratchetViolations(history: List<BaselineVersion>): List<String> =
+    history.zipWithNext().flatMap { (older, newer) ->
+        if (newer.message.lines().any { it.startsWith("Baseline-lowered:") }) return@flatMap emptyList()
+        val (was, now) = older.report.cases to newer.report.cases
+        val drops =
+            regressions(newer.report, older.report) + listOfNotNull("cases dropped $was -> $now".takeIf { now < was })
+        drops.map {
+            "metrics/eval.json at ${newer.commit}: $it (if deliberate, add a 'Baseline-lowered: <reason>' trailer)"
+        }
+    }
+
+private fun git(vararg args: String): String {
+    val p = ProcessBuilder("git", *args).redirectError(ProcessBuilder.Redirect.DISCARD).start()
+    val out = p.inputStream.bufferedReader().readText()
+    check(p.waitFor() == 0) { "git ${args.first()} failed" }
+    return out
+}
+
+/** Null only without git or in a shallow clone; an unreadable version throws, so the gate fails closed. */
+private fun baselineHistory(path: String): List<BaselineVersion>? =
+    runCatching { git("rev-parse", "--is-shallow-repository").trim() }.getOrNull()?.takeIf { it == "false" }?.let {
+        val shas = git("log", "--reverse", "--format=%H", "--", path).lines().filter { it.isNotBlank() }
+        val committed =
+            shas.map { sha ->
+                BaselineVersion(
+                    sha.take(12),
+                    git("log", "-1", "--format=%B", sha),
+                    Json.decodeFromString(git("show", "$sha:$path")),
+                )
+            }
+        committed + BaselineVersion("working tree", "", Json.decodeFromString(File(path).readText()))
+    }
 
 fun main(args: Array<String>): Unit =
     runBlocking {
@@ -122,7 +162,16 @@ fun main(args: Array<String>): Unit =
         println("MVP target citation >= $MIN_CITATION_ACCURACY: ${if (citationOk) "ok" else "not yet"}")
 
         val baseline = File("metrics/eval.json").takeIf { modelPath == null && it.exists() }
-        val failures = baseline?.let { regressions(report, Json.decodeFromString(it.readText())) }.orEmpty()
+        val failures = mutableListOf<String>()
+        if (baseline != null) {
+            failures += regressions(report, Json.decodeFromString(baseline.readText()))
+            val history = baselineHistory(baseline.path)
+            if (history == null) {
+                System.err.println("WARN: git history unavailable or shallow, baseline ratchet skipped")
+            } else {
+                failures += ratchetViolations(history)
+            }
+        }
         failures.forEach { System.err.println("FAIL: $it") }
         exitProcess(if (failures.isEmpty()) 0 else 1)
     }

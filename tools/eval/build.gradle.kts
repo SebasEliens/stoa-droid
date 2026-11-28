@@ -12,6 +12,7 @@ dependencies {
     implementation(project(":core:rag"))
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.litertlm.jvm)
+    testImplementation(libs.kotlin.test)
 }
 
 tasks.named<JavaExec>("run") {
