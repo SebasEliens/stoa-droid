@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stoa UI mocks</title>
+<link rel="stylesheet" href="../fonts/fonts.css">
+<style>
+/* VOICE everyday, learning: calm, a little marble and bronze, the app itself is the star
+   IDEA a gallery wall of a shipped Android app, each phone hung with a museum label explaining one decision
+   PICTURE six interactive Fairphone-sized screens on a deep Aegean wall, wired together (picking a philosopher changes the chat)
+   COLOUR wall Aegean #12334a; app uses an M3 tonal scheme seeded from Aegean blue with a bronze tertiary for citations
+   TYPE Roboto Flex for UI (Android default family), Spectral for verbatim Stoic text only
+   LAYOUT title over a horizontal snap gallery of phones with labels beneath; then open questions in two columns; stacks on phone */
+:root{color-scheme:light dark;
+--wall:#12334a;--wall2:#0e2a3d;--label:light-dark(#ffffff,#16222b);--labelInk:light-dark(#14222c,#e3e9ee);--bg:light-dark(#ffffff,#0c151b);--ink:light-dark(#14222c,#e3e9ee);--muted:light-dark(#4f5d68,#9fb0bc);
+--p:light-dark(#2f5f7d,#9acbec);--onP:light-dark(#fff,#003350);--pc:light-dark(#c8e6ff,#0f4a67);--onPc:light-dark(#001e30,#c8e6ff);
+--sc:light-dark(#d6e4f0,#2c3d4a);--onSc:light-dark(#0f1d28,#d6e4f0);
+--t:light-dark(#7a5a1e,#e8c17a);--tc:light-dark(#ffdea6,#5d4204);--onTc:light-dark(#271900,#ffdea6);
+--s:light-dark(#f7f9fc,#101417);--s1:light-dark(#f0f3f7,#171c20);--s2:light-dark(#e8ecf1,#1e2429);--s3:light-dark(#dfe4ea,#283036);
+--on:light-dark(#171c20,#dfe3e8);--onV:light-dark(#41484e,#c0c7ce);--ol:light-dark(#72787e,#8a9198);--olv:light-dark(#c1c7ce,#41484e)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:16px/1.55 "Roboto Flex",Roboto,system-ui,sans-serif;overflow-x:clip}
+.band{padding-block:clamp(28px,4vw,56px);padding-left:max(5vw,16px);padding-right:max(5vw,16px)}
+.wall{background:radial-gradient(120% 80% at 50% 0%,#1b4866,var(--wall) 55%,var(--wall2));color:#eef4f8}
+.head{max-width:1240px;margin:0 auto 22px;display:flex;flex-wrap:wrap;gap:12px 32px;align-items:end;justify-content:space-between}
+h1{font-size:clamp(32px,4.4vw,48px);line-height:1.05;letter-spacing:-.02em;margin:0;font-weight:700;text-wrap:balance}
+.head p{margin:6px 0 0;max-width:60ch;color:#c4d6e2}
+.nav{display:flex;flex-wrap:wrap;gap:8px}
+.nav button,.arrows button{font:500 14px "Roboto Flex",sans-serif;color:#eef4f8;background:#ffffff14;border:1px solid #ffffff38;border-radius:8px;padding:0 14px;min-height:40px;cursor:pointer}
+.nav button:hover,.arrows button:hover{background:#ffffff26}
+.nav button:focus-visible,.arrows button:focus-visible,.phone button:focus-visible{outline:3px solid #ffd27a;outline-offset:2px}
+.gal{display:flex;gap:28px;overflow-x:auto;scroll-snap-type:x mandatory;padding:6px 2px 18px;max-width:1240px;margin:0 auto;scrollbar-color:#ffffff40 transparent}
+.item{flex:none;scroll-snap-align:start;width:340px;display:flex;flex-direction:column;gap:16px}
+.arrows{max-width:1240px;margin:4px auto 0;display:flex;gap:8px;justify-content:flex-end}
+/* phone hardware */
+.phone{position:relative;width:340px;height:720px;border-radius:38px;padding:9px;background:linear-gradient(145deg,#3a4248,#15191c);box-shadow:0 1px 0 #ffffff30 inset,0 22px 40px -18px #000a}
+.scr{position:relative;height:100%;border-radius:30px;overflow:hidden;background:var(--s);color:var(--on);display:flex;flex-direction:column;font-size:14px;line-height:1.45}
+.sb{height:30px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 20px;font-size:12px;font-weight:500;color:var(--on)}
+.sb i{position:absolute;left:50%;top:9px;width:11px;height:11px;margin-left:-5px;border-radius:50%;background:#0b0d0e}
+.sb span{display:flex;gap:5px;align-items:center}
+svg.ic{width:24px;height:24px;fill:currentColor;flex:none}
+svg.sm{width:16px;height:16px}
+.phone button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+.bar{display:flex;align-items:center;gap:6px;padding:4px 8px;min-height:56px}
+.bar h2{font-size:20px;font-weight:500;margin:0;flex:1;padding-left:8px;letter-spacing:0}
+.icb{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;color:var(--onV)}
+.icb:hover{background:var(--s3)}
+.body{flex:1;overflow-y:auto;padding:0 16px 16px;scrollbar-width:none}
+.fill{display:flex;align-items:center;justify-content:center;gap:8px;min-height:44px;border-radius:22px;padding:0 22px;font-weight:500!important;background:var(--p)!important;color:var(--onP)!important;width:100%}
+.tonal{background:var(--sc)!important;color:var(--onSc)!important}
+.text{color:var(--p)!important;font-weight:500!important;min-height:44px;padding:0 12px}
+.nb{flex:none;display:grid;grid-template-columns:repeat(3,1fr);background:var(--s2);padding:10px 0 14px}
+.nb div{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:12px;font-weight:500;color:var(--onV)}
+.nb b{display:grid;place-items:center;width:64px;height:32px;border-radius:16px}
+.nb .on b{background:var(--sc);color:var(--onSc)}.nb .on{color:var(--on)}
+.av{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font:600 15px Spectral,serif;flex:none}
+.m{background:#d9c3a0;color:#3b2a10}.e{background:#b9d2c4;color:#173527}.se{background:#e3b9b1;color:#47201a}.all{background:var(--pc);color:var(--onPc)}
+/* welcome */
+.hero{margin:6px 0 0;height:300px;border-radius:28px;overflow:hidden;background:var(--pc)}
+.hero svg{width:100%;height:100%;display:block}
+.welcome h3{font-size:30px;line-height:1.1;margin:22px 0 8px;font-weight:600;letter-spacing:-.01em}
+.welcome p{margin:0 0 10px;color:var(--onV);font-size:15px}
+.pill{display:inline-flex;align-items:center;gap:6px;background:var(--s2);border-radius:8px;padding:4px 10px;font-size:13px;color:var(--onV);margin-bottom:12px}
+.dots{display:flex;gap:6px;justify-content:center;margin:14px 0 10px}.dots i{width:8px;height:8px;border-radius:4px;background:var(--olv)}.dots i.on{width:22px;background:var(--p)}
+/* setup */
+.card{border-radius:16px;background:var(--s1);padding:12px 14px;margin-bottom:10px;border:1px solid transparent;display:flex;gap:12px;align-items:flex-start;width:100%;text-align:left}
+.card.sel{background:var(--pc);color:var(--onPc);border-color:var(--p)}
+.card small{display:block;color:inherit;opacity:.78;font-size:13px}
+.radio{width:20px;height:20px;border-radius:50%;border:2px solid var(--onV);flex:none;margin-top:2px;display:grid;place-items:center}
+.sel .radio{border-color:var(--p)}.sel .radio::after{content:"";width:10px;height:10px;border-radius:50%;background:var(--p)}
+.row{display:flex;align-items:center;gap:12px;min-height:48px}
+.row>div{flex:1}.row small{display:block;color:var(--onV);font-size:12.5px}
+.sw{width:52px;height:32px;border-radius:16px;background:var(--p);position:relative;flex:none}
+.sw::after{content:"";position:absolute;right:4px;top:4px;width:24px;height:24px;border-radius:50%;background:var(--onP)}
+.sw.off{background:var(--s3);outline:2px solid var(--ol);outline-offset:-2px}.sw.off::after{left:8px;right:auto;top:8px;width:16px;height:16px;background:var(--ol)}
+.lbl{font-size:13px;font-weight:600;color:var(--p);margin:16px 0 6px}
+.step{display:grid;grid-template-columns:24px 1fr auto;gap:4px 10px;align-items:center;padding:8px 0}
+.step em{font-style:normal;font-size:12.5px;color:var(--onV);white-space:nowrap;font-variant-numeric:tabular-nums}
+.trk{grid-column:2/4;height:4px;border-radius:2px;background:var(--s3);overflow:hidden}
+.trk i{display:block;height:100%;background:var(--p);border-radius:2px;transition:width .3s}
+.ok{color:var(--p)}
+/* chat */
+.who{display:flex;align-items:center;gap:10px;flex:1;padding:4px 6px;border-radius:12px;text-align:left}
+.who:hover{background:var(--s2)}
+.who b{display:block;font-size:16px;font-weight:500}.who small{display:block;font-size:12px;color:var(--onV)}
+.me{align-self:flex-end;background:var(--p);color:var(--onP);padding:10px 14px;border-radius:20px 20px 6px 20px;max-width:84%;margin:8px 0 14px}
+.msgs{display:flex;flex-direction:column}
+.ans p{margin:0 0 10px}
+.cite{display:inline-flex;align-items:center;justify-content:center;min-width:20px;height:20px;padding:0 5px;border-radius:6px;background:var(--tc)!important;color:var(--onTc)!important;font-size:11.5px!important;font-weight:700!important;vertical-align:1px;margin:0 1px}
+.quote{border-left:3px solid var(--t);background:var(--s1);border-radius:0 12px 12px 0;padding:10px 12px;margin:0 0 10px;font:italic 15px/1.45 Spectral,Georgia,serif}
+.quote cite{display:block;font:500 12px "Roboto Flex",sans-serif;color:var(--t);margin-top:6px;font-style:normal}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 6px}
+.chip{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 12px;border-radius:8px;border:1px solid var(--olv)!important;font-size:13px!important;font-weight:500!important;color:var(--onV)!important}
+.chip.on{background:var(--sc)!important;color:var(--onSc)!important;border-color:transparent!important}
+.meta{font-size:12px;color:var(--onV);display:flex;gap:6px;align-items:center;margin-top:4px}
+.compose{flex:none;display:flex;gap:8px;align-items:center;padding:8px 12px}
+.field{flex:1;height:48px;border-radius:24px;background:var(--s2);display:flex;align-items:center;padding:0 16px;color:var(--onV)}
+.fab{width:48px;height:48px;border-radius:16px;background:var(--pc)!important;color:var(--onPc)!important;display:grid;place-items:center}
+.scrim{position:absolute;inset:0;background:#0008;opacity:0;pointer-events:none;transition:opacity .2s;z-index:3}
+.sheet{position:absolute;left:0;right:0;bottom:0;background:var(--s1);border-radius:28px 28px 0 0;padding:10px 20px 22px;transform:translateY(105%);transition:transform .28s cubic-bezier(.2,0,0,1);z-index:4}
+.open .scrim{opacity:1;pointer-events:auto}.open .sheet{transform:none}
+.grab{width:32px;height:4px;border-radius:2px;background:var(--ol);margin:0 auto 14px;opacity:.6}
+.sheet h4{margin:0;font-size:18px;font-weight:500}.sheet .sub{font-size:13px;color:var(--onV);margin:2px 0 12px}
+.sheet .quote{font-size:16px;background:var(--s2)}
+.why{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--onV);margin:4px 0 14px}
+.why .trk{flex:1;height:6px}.why .trk i{background:var(--t)}
+/* picker */
+.pick{display:flex;gap:12px;align-items:center;padding:12px;border-radius:16px;background:var(--s1);margin-bottom:10px;width:100%;text-align:left;border:1px solid transparent!important}
+.pick .av{width:52px;height:52px;font-size:20px}
+.pick b{display:block;font-size:16px;font-weight:500}.pick small{display:block;color:var(--onV);font-size:13px;line-height:1.35}
+.pick.sel{background:var(--pc);color:var(--onPc);border-color:var(--p)!important}.pick.sel small{color:var(--onPc);opacity:.8}
+.pick .tick{margin-left:auto;color:var(--p);opacity:0}.pick.sel .tick{opacity:1}
+/* library */
+.search{height:52px;border-radius:26px;background:var(--s2);display:flex;align-items:center;gap:12px;padding:0 16px;color:var(--onV);margin:4px 0 12px}
+.cont{border-radius:16px;background:var(--tc);color:var(--onTc);padding:12px 14px;margin-bottom:12px}
+.cont small{display:block;font-size:12px;opacity:.8}.cont p{margin:4px 0 0;font:italic 14.5px/1.4 Spectral,serif}
+.li{display:flex;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--olv)}
+.li:last-child{border:0}
+.li b{display:block;font-weight:500;font-size:15px}.li small{display:block;color:var(--onV);font-size:12.5px}
+.li .n{margin-left:auto;font-size:12px;color:var(--onV);white-space:nowrap}
+/* settings */
+.stor{display:flex;height:10px;border-radius:5px;overflow:hidden;gap:2px;margin:8px 0 8px}
+.leg{display:grid;grid-template-columns:auto 1fr auto;gap:4px 8px;font-size:12.5px;color:var(--onV);align-items:center}
+.leg i{width:10px;height:10px;border-radius:3px}.leg em{font-style:normal;white-space:nowrap;font-variant-numeric:tabular-nums}
+.seg{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--ol);border-radius:20px;overflow:hidden;margin:6px 0 4px}
+.seg span{text-align:center;padding:8px 0;font-size:13px;font-weight:500;border-left:1px solid var(--ol)}.seg span:first-child{border:0}
+.seg .on{background:var(--sc);color:var(--onSc)}
+.slider{position:relative;height:20px;margin:4px 4px}
+.slider::before{content:"";position:absolute;left:0;right:0;top:8px;height:4px;border-radius:2px;background:var(--s3)}
+.slider i{position:absolute;left:0;top:6px;height:8px;width:33%;border-radius:4px;background:var(--p)}
+.slider b{position:absolute;left:33%;top:0;width:4px;height:20px;margin-left:-2px;border-radius:2px;background:var(--p)}
+.danger{color:light-dark(#ba1a1a,#ffb4ab)}
+/* museum labels */
+.note{background:var(--label);color:var(--labelInk);border-radius:6px;padding:14px 16px;font-size:14.5px;line-height:1.5;flex:1}
+.note h3{margin:0 0 6px;font-size:17px;font-weight:650}
+.note p{margin:0 0 8px}
+.note .alt{color:var(--muted)}
+.note code{font:500 12.5px ui-monospace,Menlo,monospace;background:color-mix(in srgb,var(--labelInk) 8%,transparent);padding:1px 5px;border-radius:4px;overflow-wrap:anywhere}
+.qs{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:18px 40px}
+.qs h2{grid-column:1/-1;font-size:28px;line-height:1.1;margin:0 0 4px;letter-spacing:-.01em}
+.q{border-top:2px solid var(--ink);padding-top:10px}
+.q h3{margin:0 0 4px;font-size:17px}.q p{margin:0;color:var(--muted)}
+.foot{max-width:1240px;margin:26px auto 0;font-size:13px;color:var(--muted)}
+@media(max-width:600px){.item{width:min(340px,calc(100vw - 40px))}.phone{width:100%}.arrows{display:none}}
+@media(prefers-reduced-motion:reduce){.sheet,.scrim,.trk i{transition:none}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="i-send" viewBox="0 0 24 24"><path d="M3 20V4l19 8zm2-3 11.85-5L5 7v3.5l6 1.5-6 1.5z"/></symbol>
+<symbol id="i-down" viewBox="0 0 24 24"><path d="M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></symbol>
+<symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 4h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H7l-5 4V6a2 2 0 0 1 2-2zm0 2v11.2L6.3 16H20V6z"/></symbol>
+<symbol id="i-book" viewBox="0 0 24 24"><path d="M6 2h12a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm0 2v16h12V4h-2v7l-2.5-1.5L11 11V4z"/></symbol>
+<symbol id="i-set" viewBox="0 0 24 24"><path d="M19.4 13a7.6 7.6 0 0 0 0-2l2.1-1.6-2-3.5-2.5 1a7 7 0 0 0-1.7-1L15 3h-4l-.4 2.9a7 7 0 0 0-1.7 1l-2.5-1-2 3.5L6.6 11a7.6 7.6 0 0 0 0 2l-2.1 1.6 2 3.5 2.5-1a7 7 0 0 0 1.7 1L11 21h4l.4-2.9a7 7 0 0 0 1.7-1l2.5 1 2-3.5zM13 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7z"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24"><path d="M15.5 14h-.8l-.3-.3A6.5 6.5 0 1 0 14 15.5l.3.3v.8l5 5 1.5-1.5zm-6 0a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9z"/></symbol>
+<symbol id="i-back" viewBox="0 0 24 24"><path d="M20 11H7.8l5.6-5.6L12 4l-8 8 8 8 1.4-1.4L7.8 13H20z"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></symbol>
+<symbol id="i-lock" viewBox="0 0 24 24"><path d="M18 8h-1V6a5 5 0 0 0-10 0v2H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V10a2 2 0 0 0-2-2zM9 6a3 3 0 0 1 6 0v2H9zm3 11a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/></symbol>
+<symbol id="i-more" viewBox="0 0 24 24"><path d="M12 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm0 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm0 6a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"/></symbol>
+<symbol id="i-chev" viewBox="0 0 24 24"><path d="M10 6 8.6 7.4l4.6 4.6-4.6 4.6L10 18l6-6z"/></symbol>
+<symbol id="i-wifi" viewBox="0 0 24 24"><path d="M12 21 0 6.5A19 19 0 0 1 12 2.5a19 19 0 0 1 12 4z"/></symbol>
+<symbol id="i-bat" viewBox="0 0 24 24"><path d="M15.7 4H14V2h-4v2H8.3C7.6 4 7 4.6 7 5.3v15.3c0 .8.6 1.4 1.3 1.4h7.3c.8 0 1.4-.6 1.4-1.3V5.3C17 4.6 16.4 4 15.7 4z"/></symbol>
+</defs></svg>
+
+<section class="band wall">
+  <div class="head">
+    <div>
+      <h1>Stoa: talk to the Stoics, offline</h1>
+      <p>Six first-pass screens for a fully on-device RAG app on the Fairphone (Gen. 6). Tap things: citations open their source, setup runs, and picking a philosopher changes who answers in the chat.</p>
+    </div>
+    <div class="nav" id="nav"></div>
+  </div>
+  <div class="gal" id="gal">
+
+  <!-- 1 Welcome -->
+  <div class="item" id="s-welcome">
+    <div class="phone"><div class="scr">
+      <div class="sb"><b>18:17</b><i></i><span><svg class="ic sm"><use href="#i-wifi"/></svg><svg class="ic sm"><use href="#i-bat"/></svg></span></div>
+      <div class="body welcome">
+        <div class="hero"><svg viewBox="0 0 300 300" preserveAspectRatio="xMidYMax slice" aria-label="A Greek portico at dawn">
+          <defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6d9a8"/><stop offset="1" stop-color="#f2b98c"/></linearGradient>
+          <linearGradient id="col" x1="0" x2="1"><stop offset="0" stop-color="#fbf7f0"/><stop offset=".6" stop-color="#e9e1d4"/><stop offset="1" stop-color="#c9bba6"/></linearGradient>
+          <g id="column"><rect x="-11" y="0" width="22" height="150" fill="url(#col)"/><rect x="-15" y="-8" width="30" height="9" rx="2" fill="#f4eee4"/><rect x="-15" y="150" width="30" height="8" fill="#d6cab8"/><path d="M-4 4v144M4 4v144" stroke="#cbbfae" stroke-width="1.4"/></g></defs>
+          <rect width="300" height="300" fill="url(#sky)"/>
+          <circle cx="210" cy="150" r="46" fill="#fff3d6"/>
+          <path d="M0 210 Q80 180 150 200 T300 190 V300 H0z" fill="#9fb8c6"/>
+          <path d="M0 236 Q90 214 170 232 T300 226 V300 H0z" fill="#2f5f7d"/>
+          <path d="M40 70 L150 26 L260 70 Z" fill="#f4eee4"/><path d="M150 26 L260 70 H150z" fill="#ddd2c2"/>
+          <rect x="34" y="70" width="232" height="14" fill="#e9e1d4"/><rect x="34" y="84" width="232" height="4" fill="#c9bba6"/>
+          <use href="#column" x="64" y="96"/><use href="#column" x="121" y="96"/><use href="#column" x="179" y="96"/><use href="#column" x="236" y="96"/>
+          <rect x="26" y="254" width="248" height="10" fill="#efe7da"/><rect x="18" y="264" width="264" height="40" fill="#e0d6c6"/>
+          <path d="M18 264h264" stroke="#fff" stroke-width="1.5" opacity=".7"/>
+        </svg></div>
+        <h3>Stoa</h3>
+        <p>Ask Marcus Aurelius, Epictetus and Seneca anything. They answer from their own words, and quote them.</p>
+        <span class="pill"><svg class="ic sm"><use href="#i-lock"/></svg>Runs on this phone. Nothing leaves it.</span>
+        <div class="dots"><i class="on"></i><i></i><i></i></div>
+        <button class="fill" data-go="s-setup">Get started</button>
+      </div>
+    </div></div>
+    <div class="note"><h3>1. Welcome</h3>
+      <p><b>Decision:</b> one screen that makes a single promise (private, offline, cited) before asking for a 500 MB download. The privacy pill is the value proposition, not a footnote.</p>
+      <p class="alt"><b>Skipped:</b> a three-page swipe carousel. Users skip carousels; the dots hint there's more but the button is enough.</p>
+      <p>Compose: <code>Scaffold</code>, <code>Button</code>, a vector <code>ImageVector</code> hero. Android 12+ also gives you a system <code>SplashScreen</code> before this.</p></div>
+  </div>
+
+  <!-- 2 Setup -->
+  <div class="item" id="s-setup">
+    <div class="phone"><div class="scr">
+      <div class="sb"><b>18:18</b><i></i><span><svg class="ic sm"><use href="#i-wifi"/></svg><svg class="ic sm"><use href="#i-bat"/></svg></span></div>
+      <div class="bar"><button class="icb" aria-label="Back"><svg class="ic"><use href="#i-back"/></svg></button><h2>Set up the stoa</h2></div>
+      <div class="body">
+        <div class="lbl" style="margin-top:0">Choose a language model</div>
+        <div id="models">
+          <button class="card sel" data-m="0"><span class="radio"></span><span><b>Gemma 3 1B</b> <small>About 550 MB. Fast, good for short answers. Recommended for this phone.</small></span></button>
+          <button class="card" data-m="1"><span class="radio"></span><span><b>Gemma 3n E2B</b> <small>About 3 GB. Richer answers, slower, warmer battery.</small></span></button>
+        </div>
+        <div class="row"><div>Download on Wi-Fi only<small>The only time Stoa uses the network</small></div><span class="sw"></span></div>
+        <div class="lbl">Progress</div>
+        <div class="step"><svg class="ic sm ok"><use href="#i-check"/></svg><span>Texts bundled</span><em>3 authors, 1,742 passages</em></div>
+        <div class="step"><svg class="ic sm" id="st1"><use href="#i-down"/></svg><span>Embedding model</span><em id="pc1">0%</em><div class="trk"><i id="b1" style="width:0"></i></div></div>
+        <div class="step"><svg class="ic sm" id="st2"><use href="#i-down"/></svg><span id="m-name">Gemma 3 1B</span><em id="pc2">0%</em><div class="trk"><i id="b2" style="width:0"></i></div></div>
+        <div class="step"><svg class="ic sm" id="st3"><use href="#i-down"/></svg><span>Build search index</span><em id="pc3">waiting</em><div class="trk"><i id="b3" style="width:0"></i></div></div>
+        <button class="fill" id="run" style="margin-top:12px">Download and set up</button>
+      </div>
+    </div></div>
+    <div class="note"><h3>2. First-run download</h3>
+      <p><b>Decision:</b> ship the texts and a prebuilt index-able corpus inside the APK (a few MB), download only the models. Show three honest steps so a long wait feels like progress, not a hang.</p>
+      <p class="alt"><b>Skipped:</b> bundling the model in the APK (Play caps base APKs; Play Asset Delivery is an option later) and hiding the model choice entirely.</p>
+      <p>Android: <code>WorkManager</code> foreground download that survives the app closing, <code>LinearProgressIndicator</code>. Sizes are approximate.</p></div>
+  </div>
+
+  <!-- 3 Chat -->
+  <div class="item" id="s-chat">
+    <div class="phone"><div class="scr" id="chatScr">
+      <div class="sb"><b>18:24</b><i></i><span><svg class="ic sm"><use href="#i-wifi"/></svg><svg class="ic sm"><use href="#i-bat"/></svg></span></div>
+      <div class="bar">
+        <button class="who" data-go="s-pick"><span class="av m" id="hAv">M</span><span><b id="hName">Marcus Aurelius <svg class="ic sm" style="vertical-align:-3px"><use href="#i-down"/></svg></b><small id="hSub">Meditations · on device</small></span></button>
+        <button class="icb" aria-label="More"><svg class="ic"><use href="#i-more"/></svg></button>
+      </div>
+      <div class="body msgs">
+        <div class="me">I keep lying awake replaying an argument with my manager. What would you tell me?</div>
+        <div class="ans" id="ans"></div>
+        <div class="chips" id="srcChips"></div>
+        <div class="meta"><svg class="ic sm"><use href="#i-lock"/></svg><span id="metaTxt">Gemma 3 1B · 3 passages · 14 tok/s</span></div>
+      </div>
+      <div class="compose"><div class="field" id="ph">Ask Marcus…</div><button class="fab" aria-label="Send"><svg class="ic"><use href="#i-send"/></svg></button></div>
+      <div class="nb"><div class="on"><b><svg class="ic"><use href="#i-chat"/></svg></b>Chat</div><div><b><svg class="ic"><use href="#i-book"/></svg></b>Library</div><div><b><svg class="ic"><use href="#i-set"/></svg></b>Settings</div></div>
+      <div class="scrim" id="scrim"></div>
+      <div class="sheet" id="sheet"><div class="grab"></div><h4 id="shT"></h4><div class="sub" id="shS"></div><div class="quote" id="shQ"></div>
+        <div class="why">Match<div class="trk"><i id="shM"></i></div><span id="shMv"></span></div>
+        <div style="display:flex;gap:8px"><button class="fill tonal" id="shClose">Close</button><button class="fill">Read in context</button></div></div>
+    </div></div>
+    <div class="note"><h3>3. Chat with citations</h3>
+      <p><b>Decision:</b> two visibly different voices. The model's paraphrase is plain sans text; anything verbatim from the corpus is a serif quote with a bronze source line. Small models invent quotes, so the UI only lets real retrieved text look like scripture. Tap a <span style="background:var(--tc);color:var(--onTc);padding:0 4px;border-radius:4px;font-weight:700">1</span> chip.</p>
+      <p class="alt"><b>Skipped:</b> classic chat bubbles for the answer (long answers read better as a page), and hiding sources behind a menu.</p>
+      <p>Compose: <code>LazyColumn</code>, <code>ModalBottomSheet</code>, <code>NavigationBar</code>, <code>AssistChip</code>. Tokens stream in via a <code>Flow</code>.</p></div>
+  </div>
+
+  <!-- 4 Picker -->
+  <div class="item" id="s-pick">
+    <div class="phone"><div class="scr">
+      <div class="sb"><b>18:23</b><i></i><span><svg class="ic sm"><use href="#i-wifi"/></svg><svg class="ic sm"><use href="#i-bat"/></svg></span></div>
+      <div class="bar"><button class="icb" aria-label="Back" data-go="s-chat"><svg class="ic"><use href="#i-back"/></svg></button><h2>Who will you ask?</h2></div>
+      <div class="body" id="picks"></div>
+    </div></div>
+    <div class="note"><h3>4. Choose a philosopher</h3>
+      <p><b>Decision:</b> the persona is just a retrieval filter plus a system prompt, so it's cheap to switch and lives in the chat's top bar, one tap away. Picking one here updates the chat screen.</p>
+      <p class="alt"><b>Skipped:</b> a separate chat thread per philosopher (more navigation), or an avatar gallery with generated portraits (no reliable likenesses, and it invites uncanny "AI Marcus" vibes).</p>
+      <p>Compose: selectable <code>Card</code>s with <code>Modifier.selectable</code> and a shared <code>ViewModel</code> holding the persona.</p></div>
+  </div>
+
+  <!-- 5 Library -->
+  <div class="item" id="s-lib">
+    <div class="phone"><div class="scr">
+      <div class="sb"><b>18:30</b><i></i><span><svg class="ic sm"><use href="#i-wifi"/></svg><svg class="ic sm"><use href="#i-bat"/></svg></span></div>
+      <div class="bar"><h2>Library</h2></div>
+      <div class="body">
+        <div class="search"><svg class="ic"><use href="#i-search"/></svg>Search by meaning, e.g. "fear of death"</div>
+        <div class="chips" id="libChips"></div>
+        <div class="cont"><small>Continue reading · Meditations, Book 5.1</small><p>"In the morning when thou risest unwillingly, let this thought be present: I am rising to the work of a human being."</p></div>
+        <div id="libList"></div>
+      </div>
+      <div class="nb"><div><b><svg class="ic"><use href="#i-chat"/></svg></b>Chat</div><div class="on"><b><svg class="ic"><use href="#i-book"/></svg></b>Library</div><div><b><svg class="ic"><use href="#i-set"/></svg></b>Settings</div></div>
+    </div></div>
+    <div class="note"><h3>5. Library</h3>
+      <p><b>Decision:</b> the corpus is a first-class reader, not just hidden RAG fuel. "Read in context" from a citation lands here, and the same vector index powers search by meaning. Translations and years are shown because they're the reason the texts are free to ship.</p>
+      <p class="alt"><b>Skipped:</b> keyword-only search (embeddings are already on the phone, so semantic search is nearly free).</p>
+      <p>Compose: <code>SearchBar</code>, <code>FilterChip</code>, <code>ListItem</code>. Data from Room.</p></div>
+  </div>
+
+  <!-- 6 Settings -->
+  <div class="item" id="s-set">
+    <div class="phone"><div class="scr">
+      <div class="sb"><b>18:31</b><i></i><span><svg class="ic sm"><use href="#i-wifi"/></svg><svg class="ic sm"><use href="#i-bat"/></svg></span></div>
+      <div class="bar"><h2>Settings</h2></div>
+      <div class="body">
+        <div class="lbl" style="margin-top:0">Model</div>
+        <div class="row"><div>Gemma 3 1B, 4-bit<small>Runs on GPU via LiteRT-LM</small></div><svg class="ic" style="color:var(--onV)"><use href="#i-chev"/></svg></div>
+        <div class="lbl">Answers</div>
+        <div>Tone</div>
+        <div class="seg"><span>Terse</span><span class="on">Balanced</span><span>Expansive</span></div>
+        <div class="row" style="min-height:36px"><div>Passages per answer</div><b>3</b></div>
+        <div class="slider"><i></i><b></b></div>
+        <div class="row"><div>Quote sources verbatim<small>Show retrieved text under each answer</small></div><span class="sw"></span></div>
+        <div class="lbl">Storage · 812 MB</div>
+        <div class="stor"><i style="flex:550;background:var(--p)"></i><i style="flex:180;background:var(--t)"></i><i style="flex:62;background:#7fa7c0"></i><i style="flex:20;background:var(--ol)"></i></div>
+        <div class="leg"><i style="background:var(--p)"></i>Language model<em>550 MB</em><i style="background:var(--t)"></i>Embedding model<em>180 MB</em><i style="background:#7fa7c0"></i>Texts and vector index<em>62 MB</em><i style="background:var(--ol)"></i>Conversations<em>20 MB</em></div>
+        <div class="lbl">Privacy</div>
+        <div class="row"><div>Block network after setup<small>Stoa works fully offline</small></div><span class="sw"></span></div>
+        <div class="row danger"><div>Delete all conversations</div></div>
+      </div>
+      <div class="nb"><div><b><svg class="ic"><use href="#i-chat"/></svg></b>Chat</div><div><b><svg class="ic"><use href="#i-book"/></svg></b>Library</div><div class="on"><b><svg class="ic"><use href="#i-set"/></svg></b>Settings</div></div>
+    </div></div>
+    <div class="note"><h3>6. Settings</h3>
+      <p><b>Decision:</b> expose the RAG knobs a curious user (you) wants: passages per answer (top-k), tone (maps to temperature and length), and a storage breakdown, because 800 MB on a phone deserves an explanation.</p>
+      <p class="alt"><b>Skipped:</b> raw temperature and context-length sliders. Fun for us, confusing for everyone else; maybe a hidden developer screen.</p>
+      <p>Persistence: Jetpack <code>DataStore</code>. Sizes are illustrative.</p></div>
+  </div>
+
+  </div>
+  <div class="arrows"><button id="prev" aria-label="Previous screen">Previous</button><button id="next" aria-label="Next screen">Next</button></div>
+</section>
+
+<section class="band">
+  <div class="qs">
+    <h2>Questions for you before we go further</h2>
+    <div class="q"><h3>Name and feel</h3><p>"Stoa" (the porch where Zeno taught) with Aegean blue and marble. Keep it, or would you rather use Material You dynamic colour from your wallpaper?</p></div>
+    <div class="q"><h3>Voice of the answer</h3><p>Should Marcus speak in first person ("I wrote to myself…") or should a narrator explain what Marcus taught? First person is more fun; narrator is more honest.</p></div>
+    <div class="q"><h3>Navigation</h3><p>Three bottom tabs (Chat, Library, Settings) is the standard M3 pattern. Do you want chat history too, which would add a drawer or a fourth tab?</p></div>
+    <div class="q"><h3>The "council" mode</h3><p>"All three" mixes sources from every author. Should it answer once with mixed citations, or let each philosopher reply in turn like a small debate?</p></div>
+    <div class="q"><h3>Default model</h3><p>The 1B model is the safe default on a Fairphone 6. Worth offering the bigger one at all in v1, or keep one model and fewer decisions?</p></div>
+    <div class="q"><h3>Daily touch</h3><p>A morning passage notification or home-screen widget would suit the Stoic habit. In scope, or later?</p></div>
+  </div>
+  <p class="foot">Quotations use public-domain translations: Meditations (George Long, 1862), Enchiridion (T. W. Higginson, 1865), Letters to Lucilius (R. M. Gummere, 1917–25). Model sizes, token speed and passage counts are illustrative.</p>
+</section>
+
+<script>
+{
+const P=[
+ {k:"m",i:"M",name:"Marcus Aurelius",sub:"Meditations · on device",ph:"Ask Marcus…",blurb:"Emperor, writing notes to himself. Meditations, 12 books.",n:"488 passages",
+  ans:["Night is when the mind replays what the day could not finish. But notice: the argument is over, and what keeps you awake is your judgment of it, not the event itself <c>1</c>.","I would begin each morning expecting difficult people, and refuse to be harmed by them <c>2</c>. Tomorrow, ask only what is yours to do next, then do it well."],
+  src:[["Meditations 4.7","Take away thy opinion, and then there is taken away the complaint, “I have been harmed.” Take away the complaint, “I have been harmed,” and the harm is taken away.",.86],["Meditations 2.1","Begin the morning by saying to thyself, I shall meet with the busy-body, the ungrateful, arrogant, deceitful, envious, unsocial.",.81],["Meditations 6.6","The best way of avenging thyself is not to become like the wrong doer.",.74]]},
+ {k:"e",i:"E",name:"Epictetus",sub:"Discourses, Enchiridion · on device",ph:"Ask Epictetus…",blurb:"Freed slave turned teacher. Discourses and the Enchiridion.",n:"612 passages",
+  ans:["Divide it in two. Your manager's words and mood are not within your power. Your reply, and the story you tell yourself at 3 a.m., are <c>1</c>.","You are not disturbed by the argument but by your view of it <c>2</c>. Change the view, and the night is yours again."],
+  src:[["Enchiridion 1","There are things which are within our power, and there are things which are beyond our power.",.88],["Enchiridion 5","Men are disturbed not by things, but by the views which they take of things.",.85],["Enchiridion 20","When, therefore, any one provokes you, be assured that it is your own opinion which provokes you.",.79]]},
+ {k:"se",i:"S",name:"Seneca",sub:"Letters to Lucilius · on device",ph:"Ask Seneca…",blurb:"Statesman and playwright. 124 letters to his friend Lucilius.",n:"642 passages",
+  ans:["My dear friend, you are suffering a quarrel that already ended. We suffer more often in imagination than in reality <c>1</c>.","And the hours you spend replaying it are hours spent. Guard your time; it is the one thing truly yours <c>2</c>."],
+  src:[["Letters 13","There are more things, Lucilius, likely to frighten us than there are to crush us; we suffer more often in imagination than in reality.",.84],["Letters 1","Nothing, Lucilius, is ours, except time.",.77],["Letters 28","You need a change of soul rather than a change of climate.",.69]]},
+ {k:"all",i:"Σ",name:"The whole stoa",sub:"All three authors · on device",ph:"Ask the Stoics…",blurb:"Search every text and let the best passages answer, whoever wrote them.",n:"1,742 passages",
+  ans:["All three would agree the argument has ended and your judgment of it has not. Epictetus would sort what is in your power <c>1</c>; Marcus would expect friction and decline to be harmed <c>2</c>.","Seneca adds that most of what you fear tonight lives only in imagination <c>3</c>."],
+  src:[["Enchiridion 1","There are things which are within our power, and there are things which are beyond our power.",.88],["Meditations 4.7","Take away thy opinion, and then there is taken away the complaint, “I have been harmed.”",.86],["Letters 13","We suffer more often in imagination than in reality.",.84]]}];
+let cur=0;
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const renderChat=()=>{const p=P[cur];
+ $("hAv").className="av "+p.k;$("hAv").textContent=p.i;
+ $("hName").firstChild.textContent=p.name+" ";$("hSub").textContent=p.sub;$("ph").textContent=p.ph;
+ const q=p.src[0];
+ $("ans").innerHTML=p.ans.map(t=>"<p>"+esc(t).replace(/&lt;c&gt;(\d)&lt;\/c&gt;/g,'<button class="cite" data-s="$1">$1</button>')+"</p>").join("")+
+  '<div class="quote">'+esc(q[1])+"<cite>"+esc(q[0])+"</cite></div>";
+ $("srcChips").innerHTML=p.src.map((s,i)=>'<button class="chip" data-s="'+(i+1)+'"><b>'+(i+1)+"</b>"+esc(s[0])+"</button>").join("");
+ $("picks").innerHTML=P.map((x,i)=>'<button class="pick'+(i===cur?" sel":"")+'" data-p="'+i+'"><span class="av '+x.k+'">'+esc(x.i)+"</span><span><b>"+esc(x.name)+"</b><small>"+esc(x.blurb)+"</small><small>"+esc(x.n)+'</small></span><svg class="ic tick"><use href="#i-check"/></svg></button>').join("");
+};
+const openSheet=n=>{const s=P[cur].src[n-1];if(!s)return;
+ $("shT").textContent=s[0];$("shS").textContent="Retrieved passage "+n+" of 3 · verbatim";$("shQ").textContent=s[1];
+ $("shM").style.width=Math.round(s[2]*100)+"%";$("shMv").textContent=s[2].toFixed(2);$("chatScr").classList.add("open")};
+const closeSheet=()=>$("chatScr").classList.remove("open");
+document.addEventListener("click",e=>{
+ const c=e.target.closest("[data-s]");if(c){openSheet(+c.dataset.s);return}
+ const p=e.target.closest("[data-p]");if(p){cur=+p.dataset.p;renderChat();return}
+ const g=e.target.closest("[data-go]");if(g){$(g.dataset.go).scrollIntoView({behavior:"smooth",block:"nearest",inline:"start"});return}
+ const m=e.target.closest("[data-m]");if(m){document.querySelectorAll("#models .card").forEach(x=>x.classList.toggle("sel",x===m));$("m-name").textContent=m.dataset.m==="0"?"Gemma 3 1B":"Gemma 3n E2B"}
+});
+$("scrim").onclick=closeSheet;$("shClose").onclick=closeSheet;
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeSheet()});
+/* setup simulation */
+let timer=null;
+$("run").onclick=()=>{if(timer)return;let t=0;$("run").textContent="Pause";
+ const set=(i,v,label)=>{$("b"+i).style.width=v+"%";$("pc"+i).textContent=label??Math.round(v)+"%";if(v>=100){$("st"+i).innerHTML='<use href="#i-check"/>';$("st"+i).classList.add("ok")}};
+ timer=setInterval(()=>{t+=1;
+  set(1,Math.min(100,t*10));
+  if(t>10)set(2,Math.min(100,(t-10)*4));
+  if(t>35)set(3,Math.min(100,(t-35)*8),t<48?Math.round((t-35)*8)+"%":"done");
+  if(t>=48){clearInterval(timer);$("run").textContent="Start talking";$("run").dataset.go="s-chat";$("pc2").textContent="done";$("pc1").textContent="done"}
+ },120)};
+/* gallery nav */
+const items=[...document.querySelectorAll(".item")],gal=$("gal");
+$("nav").innerHTML=items.map(it=>'<button data-go="'+it.id+'">'+esc(it.querySelector(".note h3").textContent.replace(/^\d\.\s*/,""))+"</button>").join("");
+const step=d=>{const x=gal.scrollLeft;const w=items[0].offsetWidth+28;gal.scrollTo({left:Math.round(x/w+d)*w,behavior:"smooth"})};
+$("prev").onclick=()=>step(-1);$("next").onclick=()=>step(1);
+gal.tabIndex=0;gal.addEventListener("keydown",e=>{if(e.key==="ArrowRight"){e.preventDefault();step(1)}if(e.key==="ArrowLeft"){e.preventDefault();step(-1)}});
+const libC=["All","Marcus","Epictetus","Seneca"];
+$("libChips").innerHTML=libC.map((c,i)=>'<span class="chip'+(i?"":" on")+'">'+(i?"":'<svg class="ic sm"><use href="#i-check"/></svg>')+c+"</span>").join("");
+const L=[["m","M","Meditations","Marcus Aurelius · tr. George Long, 1862","12 books"],["e","E","Discourses","Epictetus · tr. George Long, 1890","4 books"],["e","E","Enchiridion","Epictetus · tr. T. W. Higginson, 1865","53 sections"],["se","S","Letters to Lucilius","Seneca · tr. R. M. Gummere, 1917–25","124 letters"]];
+$("libList").innerHTML=L.map(l=>'<div class="li"><span class="av '+l[0]+'">'+l[1]+"</span><span><b>"+esc(l[2])+"</b><small>"+esc(l[3])+'</small></span><span class="n">'+esc(l[4])+"</span></div>").join("");
+renderChat();
+}
+</script>
+</body>
+</html>
