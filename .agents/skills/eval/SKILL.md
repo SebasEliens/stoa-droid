@@ -14,3 +14,6 @@ description: Run the stoa-droid golden-set eval (retrieval hit@8, citation accur
 4. Fake-mode metrics improved and the change is intended: `cp build/reports/eval.json metrics/eval.json`
    and commit it with the change. Never lower the baseline or edit `eval/golden.jsonl` to make a change pass;
    golden-set edits are their own commit with a reason.
+
+`eval/golden.jsonl` is owner-only (a hook blocks Edit/Write on it). To add a case, propose it in chat as a JSON
+line in the file's format (`{"q": "...", "expect": ["Enchiridion 1"]}`); only the owner adds it.
