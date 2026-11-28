@@ -1,6 +1,6 @@
 # 002 Living documentation
 
-Status: approved (27 Nov 2026). It moves to `specs/002-living-docs.md` when implementation starts. It lives outside `specs/` until then,
+Status: approved (27 Nov 2026); S002-11 (benchmarks) added at your request on 28 Nov 2026. It moves to `specs/002-living-docs.md` when implementation starts. It lives outside `specs/` until then,
 because validate wants a test for every example in `specs/` (V1 adds support for draft specs).
 
 ## Goal
@@ -8,6 +8,7 @@ because validate wants a test for every example in `specs/` (V1 adds support for
 One public page on GitHub Pages, rebuilt from repo files on every merge to `main`. It shows:
 - a timeline of design checkpoints, each marked implemented, specified or needs specification;
 - the technical design: every decision (`D` row) from every spec, with its choice and the check behind it;
+- benchmark results from the Fairphone, per model, against the MVP targets and over time;
 - the UI mockups, and next to each one the real screen from the phone once device checks save screenshots.
 
 ## Out of scope
@@ -23,6 +24,7 @@ Editing or commenting on the page, search, versioned docs, analytics or any trac
 | `docs/mockups/*.html` | interactive mockups (starting with `Stoa UI mocks.html`) | you, or agents when you ask |
 | `build/reports/device/*.png` | real screenshots (after V6) | the device check |
 | `app/permissions.yaml` | approved permissions, each with its library and the reason (D002-9) | you approve each entry |
+| `metrics/bench-fairphone.json` and its git history | the committed Fairphone baseline per model and backend: TTFT, decode and prefill tokens/s, load time, peak RSS, and file-mapped vs private memory | the bench gate (V8), with your approval |
 | `docs/fonts/` | Roboto Flex and Spectral, with their OFL licences | added once |
 
 A timeline item, for example:
@@ -52,6 +54,7 @@ A timeline item, for example:
 | S002-7 | a merge to `main` | CI finishes | the live Pages site shows the new content (live check) |
 | S002-9 | the built page | it loads in a browser | it makes no request to any host other than the Pages site itself |
 | S002-10 | `D` rows with area `privacy`, the approved permission list, and timeline items with privacy decisions | the page is built | a Privacy section lists them all, each linking to its spec or timeline item, plus every permission with the library that adds it and why it is accepted |
+| S002-11 | a committed Fairphone baseline, and older versions of it in git history | the page is built | a Benchmarks section shows the latest numbers per model and backend next to the MVP targets (TTFT < 3 s, decode >= 8 tok/s, peak RSS <= 2.5 GB), marks each as met or not, and shows how each number changed per commit |
 | S002-8 | the built page | someone uses it with a keyboard only, or in dark mode | every control can be reached and read |
 
 ## Device questions
