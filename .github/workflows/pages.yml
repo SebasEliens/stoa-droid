@@ -1,0 +1,46 @@
+# Living docs (spec 002, D002-6): build build/site from the repo on every push to main and deploy it to Pages.
+# Needs Settings > Pages > Source set to "GitHub Actions".
+name: Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0 # the Benchmarks section reads the history of metrics/bench-fairphone.json
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: 21
+      - uses: gradle/actions/setup-gradle@v6
+      - name: Build the site
+        run: ./gradlew :tools:docs:run
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: build/site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5

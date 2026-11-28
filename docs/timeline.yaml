@@ -1,0 +1,70 @@
+# Design checkpoints for the living docs (spec 002). Agents edit this when the owner asks.
+# Per item: id, title, then either `spec` (status comes from the spec file), `plan` (status comes from the plan
+# file), or `status: needs-spec | later`. `decided` entries take an area: lifecycle, memory, threads, hardware,
+# storage, data, privacy or tooling.
+
+- id: validation-setup
+  title: Validation baked into development
+  plan: docs/plans/validation-setup.md
+
+- id: ask-the-stoics
+  title: Ask the Stoics
+  spec: "001"
+
+- id: living-docs
+  title: Living documentation
+  spec: "002"
+
+- id: model-download
+  title: Download a model over Wi-Fi
+  spec: null
+  status: needs-spec
+  decided:
+    - text: The app uses the network only to download models (27 Nov 2026).
+      area: privacy
+  open:
+    - How do we prove nothing else in the app sends data once INTERNET is granted?
+    - How does a broken download resume?
+    - How are downloaded files checked (checksums)?
+    - Where do the model files live?
+    - What happens when the disk is full?
+
+- id: semantic-retrieval
+  title: Semantic retrieval
+  status: needs-spec
+  decided:
+    - text: An embedding model replaces or joins BM25.
+      area: data
+  open:
+    - Which embedding model, and how big is it?
+    - How much RAM does it need with Gemma loaded at the same time?
+    - Is the index built on the phone or shipped prebuilt?
+    - What happens to the index when the embedding model changes?
+    - Does BM25 stay, as a fallback or in a hybrid?
+
+- id: model-swap
+  title: Swap between two models
+  status: needs-spec
+  decided:
+    - text: Two models, swappable.
+      area: memory
+  open:
+    - Unload before load, to keep peak RAM down?
+    - What happens to an answer that is still streaming?
+    - A benchmark baseline per model.
+
+- id: chat-persistence
+  title: Keep the chat
+  status: needs-spec
+  open:
+    - What survives process death?
+    - When is the chat saved?
+    - What happens to a half-streamed answer?
+
+- id: ui-from-mockups
+  title: "UI from the mockups: welcome, setup, library and settings screens"
+  status: needs-spec
+
+- id: voice
+  title: Voice
+  status: later

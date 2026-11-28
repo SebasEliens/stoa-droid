@@ -1,7 +1,8 @@
 # 002 Living documentation
 
-Status: approved (27 Nov 2026); S002-11 (benchmarks) added at your request on 28 Nov 2026. It moves to `specs/002-living-docs.md` when implementation starts. It lives outside `specs/` until then,
-because validate wants a test for every example in `specs/` (V1 adds support for draft specs).
+Status: implemented
+
+Approved 27 Nov 2026; S002-11 (benchmarks) added at your request on 28 Nov 2026.
 
 ## Goal
 
@@ -68,7 +69,7 @@ everything in the allowlist becomes public (S002-6).
 |---|---|---|---|---|---|
 | D002-1 | tooling | Timeline file format | YAML: readable, comments, matches the lists you type in chat; needs a parser. JSON: no parser, noisy to read. | **YAML** (you, 27 Nov): agents edit it when you ask, from lists you type. | S002-3 |
 | D002-2 | tooling | Where a checkpoint's status comes from | YAML status for everything (can drift from the spec), or the spec's `Status:` line when a spec exists (one source of truth). | **The spec wins** (you, 27 Nov: recommendations). | S002-1 |
-| D002-3 | tooling | What builds the page | A Kotlin `tools:docs` module (same language and tests as `tools:eval`, runs in validate, one YAML library), a Python or shell script (fewer lines, a second language), or a site generator such as MkDocs or Astro (themes, but a whole toolchain). | **Kotlin `tools:docs`** (you, 27 Nov). One stack to learn, and validate already runs Gradle. | S002-1 to S002-6 |
+| D002-3 | tooling | What builds the page | A Kotlin `tools:docs` module (same language and tests as `tools:eval`, runs in validate, one YAML library), a Python or shell script (fewer lines, a second language), or a site generator such as MkDocs or Astro (themes, but a whole toolchain). | **Kotlin `tools:docs`** (you, 27 Nov). One stack to learn, and validate already runs Gradle. | S002-1, S002-2, S002-3, S002-4, S002-5, S002-6 |
 | D002-4 | tooling | Page technology | One static HTML file with plain JavaScript and no framework, mockups embedded as iframes; or a JS framework. | **Plain static HTML** (you, 27 Nov). The mockups are already plain HTML. | S002-8 |
 | D002-5 | privacy | Fonts | The mockups load Roboto Flex and Spectral from Google Fonts, which sends every visitor's IP address to Google. Self-hosting the font files (both are OFL) avoids that. | **Self-host** (you, 27 Nov). The font files go in `docs/fonts/` with their OFL licence files, and the page makes no request outside GitHub Pages. | S002-9 |
 | D002-6 | tooling | Deployment | GitHub Actions with `actions/deploy-pages` on push to `main` (official, no extra branch), or a `gh-pages` branch. | **Actions** (you, 27 Nov). | S002-7 |

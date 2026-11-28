@@ -1,0 +1,30 @@
+/* Self-hosted fonts (D002-5): no request leaves the site. Files from github.com/google/fonts, under the OFL. */
+@font-face {
+  font-family: "Roboto Flex";
+  src: url("RobotoFlex.ttf") format("truetype");
+  font-weight: 100 1000;
+  font-stretch: 25% 151%;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Spectral";
+  src: url("Spectral-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Spectral";
+  src: url("Spectral-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Spectral";
+  src: url("Spectral-Italic.ttf") format("truetype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
