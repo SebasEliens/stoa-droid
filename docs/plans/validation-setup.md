@@ -93,16 +93,16 @@ you, and with teaching. Implement and validate then run without new design choic
 
 Already built in the working tree (eval ratchet, `S001-6`). This PR widens `S001-6` from "no INTERNET" to an allowlist.
 
-- [ ] Depends on: V0.
-- [ ] Files: `tools/eval/**`, `.github/workflows/ci.yml`, `AGENTS.md`, `specs/001-ask-the-stoics.md`,
+- [x] Depends on: V0.
+- [x] Files: `tools/eval/**`, `.github/workflows/ci.yml`, `AGENTS.md`, `specs/001-ask-the-stoics.md`,
       `app/src/test/.../PermissionsTest.kt`.
-- [ ] Change: `S001-6` reads "the requested permissions are exactly the approved list, and INTERNET is never on it".
+- [x] Change: `S001-6` reads "the requested permissions are exactly the approved list, and INTERNET is never on it".
       The approved list today is what LiteRT and WorkManager add: `FOREGROUND_SERVICE`, `FOREGROUND_SERVICE_DATA_SYNC`,
       `WAKE_LOCK`, `ACCESS_NETWORK_STATE`, `RECEIVE_BOOT_COMPLETED`, `<app>.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION`.
       Each entry names the library that adds it and why it is accepted. If you approve D002-9, the list lives in
       `app/permissions.yaml`, so the living doc shows exactly what the test enforces.
-- [ ] Result: a dependency bump that adds a permission fails CI until you add it to the list.
-- [ ] Verify (unit): adding INTERNET to the manifest fails; adding any other permission fails; today's manifest passes.
+- [x] Result: a dependency bump that adds a permission fails CI until you add it to the list.
+- [x] Verify (unit): adding INTERNET to the manifest fails; adding any other permission fails; today's manifest passes.
       Ratchet: lowering `metrics/eval.json` fails and names the commit. Corrupt baseline fails. Both already shown once.
 
 ## V3: agents cannot edit the golden set
