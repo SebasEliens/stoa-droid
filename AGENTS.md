@@ -57,7 +57,8 @@ Every feature and bug fix follows the `spec` skill (`.agents/skills/spec/SKILL.m
 3. **Validate**: `scripts/validate.sh` checks for model files, spec examples have tests and `D` rows are decided
    and verifiable, then runs ktlint, detekt, Android lint, unit tests, Robolectric UI tests and the eval. No
    metric may drop below `metrics/eval.json`; when one improves, copy `build/reports/eval.json` over it in the
-   same commit. Never lower the baseline or edit `eval/golden.jsonl` just to pass.
+   same commit. Never lower the baseline or edit `eval/golden.jsonl` just to pass. A commit that lowers
+   `metrics/eval.json` or its case count needs a `Baseline-lowered: <reason>` trailer.
 
 Not covered by validate, so run them or say they were not run: `scripts/bench.sh` on the phone for model,
 prompt-length or performance changes, and the eval with `-Preal` for prompt changes.

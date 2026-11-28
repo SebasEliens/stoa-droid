@@ -20,6 +20,7 @@ Chat history across restarts, conversation memory in prompts, model download, vo
 | S001-3 | the model misquotes, or cites a passage it was not given | the answer is shown | that quote is dropped; every quote shown is a verbatim slice of a retrieved passage |
 | S001-4 | any question and any model output (empty, garbage, only bad quotes) | the answer completes | there is always a non-empty reply and nothing crashes |
 | S001-5 | only one philosopher is selected | the user taps it | it stays selected |
+| S001-6 | the installed app | its requested permissions are read | android.permission.INTERNET is not among them |
 
 ## Edge cases
 
@@ -30,18 +31,19 @@ Chat history across restarts, conversation memory in prompts, model download, vo
 - Model invents a quote or id, empty or malformed output: S001-3, S001-4.
 - One philosopher vs all three: S001-4, S001-5.
 - Rotation keeps the chat (ViewModel). Process death loses it: known gap, not specified yet.
-- Offline: always; the app makes no network calls.
+- Offline: always; the app makes no network calls: S001-6.
 
 ## Device questions
 
 - Lifecycle: the chat lives in the ViewModel. It survives rotation and is lost on process death and force-stop (D001-5).
 - Memory: the model stays loaded for the life of the process (D001-6), which makes Stoa the first background app
-  the low-memory killer takes. File-mapped vs private model memory is not measured yet (`dumpsys meminfo`, bench).
+  the low-memory killer takes. Measured 28 Nov (Gemma 3 1B int4, GPU): 453 MB GPU memory and ~350 MB native
+  heap, all private, none file-mapped, so Android can only reclaim it by killing the process.
 - Threads: model load and generation run off the main thread (D001-7).
 - Hardware: GPU first, CPU if the GPU backend fails (D001-4).
 - Storage: nothing is written by the app. The corpus is an APK asset (D001-2); the model is copied in by hand (D001-3).
 - Data: passages are read once into memory; no schema to migrate.
-- Privacy: no network, no permissions of its own (S001-6 once merged); the model folder is private to the app (D001-3).
+- Privacy: no network, no permissions of its own (S001-6); the model folder is private to the app (D001-3).
 
 ## Decisions
 
