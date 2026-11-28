@@ -117,15 +117,15 @@ Already built in the working tree (eval ratchet, `S001-6`). This PR widens `S001
 
 ## V4: reviewer subagent and strict lint
 
-- [ ] Depends on: V0.
-- [ ] Files: `.agents/agents/reviewer.md` (new), `.claude/agents` symlink, `.agents/skills/spec/SKILL.md`,
+- [x] Depends on: V0.
+- [x] Files: `.agents/agents/reviewer.md` (new), `.claude/agents` symlink, `.agents/skills/spec/SKILL.md`,
       `app/build.gradle.kts`, `app/lint-baseline.xml` (new, if there are existing warnings).
-- [ ] Change: a read-only reviewer, run with fresh context, that checks the branch diff against its spec. It reports
+- [x] Change: a read-only reviewer, run with fresh context, that checks the branch diff against its spec. It reports
       only these: code that departs from a `D` row in the spec; a spec example without a test; network use; inference or file I/O on the main thread; an `Llm` or
       `Engine` that is never closed; exact-text asserts on model output; diffs to `eval/golden.jsonl`, `metrics/`,
       or to a removed or weakened test (`QuotesTest` above all). The spec skill runs it before a PR.
       Android lint gets `warningsAsErrors = true`. Existing warnings go into a lint baseline that only shrinks.
-- [ ] Result: every PR has one fresh-context review, and a new lint warning fails `check`.
+- [x] Result: every PR has one fresh-context review, and a new lint warning fails `check`.
 - [ ] Verify (live): run the reviewer on a planted branch, a commit that drops `.use {}` in `LiteRtLlm` and deletes a
       test; it must name both with file and line. Lint: a planted warning fails `./gradlew :app:lint`.
 
