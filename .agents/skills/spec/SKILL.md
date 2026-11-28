@@ -85,4 +85,6 @@ The owner is learning Android. Teach while you ask.
 - Report per example id and per `D` row, plus what could not be checked here: run `/eval -Preal`, `/bench` or the
   device check for rows verified by `eval-real`, `bench` or `device`, or say they were not run.
   `device` has no script yet: check it by hand on the phone.
+- Before opening a PR, run the `reviewer` subagent (`.agents/agents/reviewer.md`) on the branch with fresh
+  context, giving it the spec. Fix or answer every finding it reports, in the PR body if you keep the code.
 - Set the spec's status to `implemented`.

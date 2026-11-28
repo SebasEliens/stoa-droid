@@ -60,6 +60,8 @@ Every feature and bug fix follows the `spec` skill (`.agents/skills/spec/SKILL.m
    same commit. Never lower the baseline or edit `eval/golden.jsonl` just to pass. A commit that lowers
    `metrics/eval.json` or its case count needs a `Baseline-lowered: <reason>` trailer.
 
+Before every PR, the `reviewer` subagent reviews the branch against its spec with fresh context.
+
 Not covered by validate, so run them or say they were not run: `scripts/bench.sh` on the phone for model,
 prompt-length or performance changes, and the eval with `-Preal` for prompt changes.
 
