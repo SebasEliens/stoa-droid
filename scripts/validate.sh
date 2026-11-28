@@ -62,8 +62,8 @@ for spec in specs/*.md; do
 done
 ((bad == 0))
 
-echo "== lint, unit and UI tests, eval"
-./gradlew -q check :tools:eval:run
+echo "== lint, unit and UI tests, eval, docs site"
+./gradlew -q check :tools:eval:run :tools:docs:run
 
 fingerprint >"$stamp"
 echo "validate: passed"

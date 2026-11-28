@@ -10,6 +10,7 @@ litertlm = "0.20.0"
 ktlint = "14.2.0"
 detekt = "1.23.8"
 robolectric = "4.18.1"
+kaml = "0.104.0"
 
 [libraries]
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
@@ -27,6 +28,7 @@ compose-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4" }
 compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest" }
 robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }
 lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycle" }
+kaml = { module = "com.charleskorn.kaml:kaml", version.ref = "kaml" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

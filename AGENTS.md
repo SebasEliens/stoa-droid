@@ -13,6 +13,7 @@ Target: Fairphone (Gen 6), minSdk 33. Voice (whisper.cpp + local TTS) comes late
 | Lint + unit tests | `./gradlew check` |
 | Eval: golden set, fake LLM (CI runs this) | `./gradlew :tools:eval:run` |
 | Eval with a real model on this machine | `./gradlew :tools:eval:run -Preal=/path/model.litertlm` |
+| Living docs site into `build/site/` (validate runs it; Pages deploys it from `main`) | `./gradlew :tools:docs:run` |
 | Device benchmark (phone on USB) | `scripts/bench.sh /path/model.litertlm [gpu\|cpu]` |
 | Format | `./gradlew ktlintFormat` |
 | Install on phone | `./gradlew :app:installDebug` |
@@ -27,6 +28,8 @@ Needs JDK 21 (Gradle selects it via `gradle/gradle-daemon-jvm.properties`) and t
   `litertlm-android` (same classes). Pure JVM.
 - `core:rag`: `Retriever` (BM25), `Prompts`, quote verification (`findExcerpt`, `parse`), `AnswerPipeline`. Pure JVM.
 - `tools:eval`: golden-set eval on the desktop JVM. Cases in `eval/golden.jsonl`, baseline in `metrics/eval.json`.
+- `tools:docs`: builds the living docs (spec 002) from `docs/timeline.yaml`, `specs/`, `app/permissions.yaml`,
+  `metrics/bench-fairphone.json`, `docs/mockups/` and `docs/fonts/` only. Plain HTML, no third-party requests.
 - `app`: Compose UI, `ChatViewModel`, manual DI in `StoaApp.kt`; debug-only `BenchActivity` for `scripts/bench.sh`.
   `app/src/test`: Robolectric tests that drive the real screen on the JVM.
 - `specs/`: one file per feature, with acceptance examples `SNNN-n`.
