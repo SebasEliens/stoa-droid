@@ -1,0 +1,20 @@
+# Approved permissions. The test S001-6 enforces this list exactly; INTERNET may never be added.
+permissions:
+  - name: android.permission.FOREGROUND_SERVICE
+    library: com.google.ai.edge.litert:litert-api (via LiteRT-LM), also com.google.android.play:asset-delivery
+    reason: LiteRT declares it for downloading AI Pack models through Play; the app never starts a foreground service.
+  - name: android.permission.FOREGROUND_SERVICE_DATA_SYNC
+    library: com.google.ai.edge.litert:litert-api (via LiteRT-LM), also com.google.android.play:asset-delivery
+    reason: It comes with the same Play model download; the app never starts a foreground service.
+  - name: android.permission.WAKE_LOCK
+    library: androidx.work:work-runtime (via LiteRT-LM and Play asset-delivery)
+    reason: WorkManager declares it for background jobs; the app schedules no work.
+  - name: android.permission.ACCESS_NETWORK_STATE
+    library: androidx.work:work-runtime (via LiteRT-LM and Play asset-delivery)
+    reason: WorkManager uses it only to read whether a network is up; it gives no network access and the app makes no network calls.
+  - name: android.permission.RECEIVE_BOOT_COMPLETED
+    library: androidx.work:work-runtime (via LiteRT-LM and Play asset-delivery)
+    reason: WorkManager declares it to reschedule jobs after a reboot; the app schedules no work.
+  - name: dev.stoa.droid.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+    library: androidx.core:core (via Compose and Activity)
+    reason: A signature permission private to this app that androidx.core uses to keep its broadcast receivers unexported.

@@ -20,7 +20,7 @@ Chat history across restarts, conversation memory in prompts, model download, vo
 | S001-3 | the model misquotes, or cites a passage it was not given | the answer is shown | that quote is dropped; every quote shown is a verbatim slice of a retrieved passage |
 | S001-4 | any question and any model output (empty, garbage, only bad quotes) | the answer completes | there is always a non-empty reply and nothing crashes |
 | S001-5 | only one philosopher is selected | the user taps it | it stays selected |
-| S001-6 | the installed app | its requested permissions are read | android.permission.INTERNET is not among them |
+| S001-6 | the installed app | its requested permissions are read | they are exactly the approved list in `app/permissions.yaml`, and android.permission.INTERNET is never among them |
 
 ## Edge cases
 
@@ -43,7 +43,7 @@ Chat history across restarts, conversation memory in prompts, model download, vo
 - Hardware: GPU first, CPU if the GPU backend fails (D001-4).
 - Storage: nothing is written by the app. The corpus is an APK asset (D001-2); the model is copied in by hand (D001-3).
 - Data: passages are read once into memory; no schema to migrate.
-- Privacy: no network, no permissions of its own (S001-6); the model folder is private to the app (D001-3).
+- Privacy: no network; the app asks for no permission of its own, and the ones its libraries add are exactly the approved list in `app/permissions.yaml`, never INTERNET (S001-6); the model folder is private to the app (D001-3).
 
 ## Decisions
 

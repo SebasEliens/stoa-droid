@@ -34,6 +34,9 @@ android {
         .add(rootProject.file("corpus").path)
 }
 
+// S001-6 reads the approved permission list; a change to it must rerun the tests.
+tasks.withType<Test>().configureEach { inputs.file("permissions.yaml") }
+
 dependencies {
     implementation(project(":core:rag"))
     implementation(libs.litertlm.android)

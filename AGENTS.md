@@ -41,6 +41,7 @@ Needs JDK 21 (Gradle selects it via `gradle/gradle-daemon-jvm.properties`) and t
   Change `Prompts` and `parse` together.
 - **Never commit model weights** (`*.litertlm`, `*.task`, `*.tflite`, `*.onnx`, `*.gguf`) or any file over 20 MB.
   Models live outside the repo; on the phone in `/sdcard/Android/data/dev.stoa.droid/files/models/`.
+- **Permissions** are pinned in `app/permissions.yaml` (S001-6 enforces it); the owner approves each entry.
 - Keep `core:*` free of Android dependencies so tests and eval run on the JVM.
 - UI work and tests use `FakeLlm`. Only the app at runtime, `eval -Preal` and the benchmark load real weights.
 - No DI framework, Room or Navigation until a feature needs them. Versions live only in `gradle/libs.versions.toml`.
