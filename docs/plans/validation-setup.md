@@ -178,6 +178,8 @@ Already built in the working tree (eval ratchet, `S001-6`). This PR widens `S001
 - [ ] Change: each question runs 5 times and the median counts. Compare: fail on TTFT, load time or peak RSS more
       than 10% above baseline, or decode tok/s more than 10% below; fail on any MVP limit (TTFT 3 s, decode 8 tok/s,
       RSS 2.5 GB) whatever the baseline. Baseline lowering uses the same `Baseline-lowered:` trailer rule.
+- [ ] Also: `bench.sh` fails at once when the phone is asleep or locked, instead of waiting 10 minutes (seen 28 Nov), and
+      records `dumpsys meminfo` (file-mapped vs private memory) with the model loaded, for D001-6 and the living doc (S002-11).
 - [ ] Result: `/bench` says pass or fail, not only numbers.
 - [ ] Verify (perf): first measure the run-to-run spread on the current commit (5 x 5 runs). If the spread is above
       5%, a 10% gate will flake, and I will bring you the numbers to choose a tolerance before recording the
